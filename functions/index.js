@@ -16,4 +16,12 @@ app.use(express.urlencoded({
 app.use(express.static(path.join(__dirname, 'routes')));
 app.use('/', indexRouter);
 
+app.get('/api', (req, res) => {
+    const date = new Date();
+    const hours = (date.getHours() % 12) + 1; // London is UTC + 1hr;
+    res.json({
+        bongs: 'BONG '.repeat(hours)
+    });
+});
+
 exports.app = functions.https.onRequest(app);
